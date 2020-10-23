@@ -34,19 +34,7 @@ def lazy_dijkstra(graph, start = None):
 
 if __name__ == "__main__":
     G = Graph(undirected = False)
-    '''
-    G.add_node('e')
-    G.add_node('b')
-    G.add_node('d')
-    G.add_node('a')
-    G.add_node('c')
-
-    G.add_edge('a', 'b', 3)
-    G.add_edge('a', 'e', 1)
-    G.add_edge('b', 'd', 8)
-    G.add_edge('b', 'c', 7)
-    G.add_edge('e', 'b', 1)
-    '''
+    
     G.add_node(0)
     G.add_node(1)
     G.add_node(2)

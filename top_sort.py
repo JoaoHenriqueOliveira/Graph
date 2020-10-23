@@ -6,10 +6,8 @@ from Graph import *
 def topSort(graph):
     n = graph.count_nodes()
     list_nodes = graph.get_list_node()
-    visited = {} # Memory for visited nodes
+    visited = {node: False for node in list_nodes} # Memory for visited nodes
     ordering = [-1 for i in range(n)] # vector that will contain the order
-    for node in list_nodes:
-        visited[node] = False
     index = n - 1
 
     for at in list_nodes:

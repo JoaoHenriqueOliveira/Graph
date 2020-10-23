@@ -8,6 +8,7 @@ def bellman_ford(graph, start = None):
     if start == None:
         start = graph.get_random_node()
         print(f"Starting node: {start}")
+
     n = graph.count_nodes()
     e = graph.count_edges()
     d = {node: float('inf') for node in graph.get_list_node()} # distance to each node

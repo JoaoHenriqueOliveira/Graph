@@ -7,10 +7,7 @@ import queue as Q
 def Prim_MST(graph):
     n = graph.count_nodes()
     pq = Q.PriorityQueue()
-    visited = {}
-    for node in graph.get_list_node():
-        visited[node] = False
-
+    visited = {node: False for node in graph.get_list_node()}
     start = graph.get_random_node()
 
     return lazyPrim(graph, start, n, pq, visited)
@@ -31,7 +28,7 @@ def lazyPrim(g, s, n, pq, visited):
         mstEdges.append(edge)
         edgeCount += 1
         mstCost += weight
-
+        # We keep adding next edges to the pq
         addEdges(g, nodeIndex, visited, pq)
     if edgeCount != m:
         return None, None
