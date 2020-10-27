@@ -1,5 +1,5 @@
 # Class for (un)directed,(un)weighted graph
-# Has implementation for Network Graph suppport
+# Network Graph suppport
 # Default: undirected and unweighted graph (Network = False)
 import random
 
