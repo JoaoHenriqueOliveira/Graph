@@ -1,3 +1,6 @@
+# Network max flow solver
+# uses Edmonds-Karp heuristic: O(VE²)
+# trasnverse the graph using BFS until there is no more augmenting paths
 from Graph import *
 import queue
 
@@ -13,7 +16,6 @@ def Ford_Fulkerson(graph, s, t, write_flow = True):
     if write_flow:
         print("Summary (residual graph):")
         write(graph, s, t)
-
 
     return max_flow
 
@@ -98,29 +100,42 @@ def write(graph, s, t):
     print(f"Sink: {t}")
     return
 
-
-
 if __name__ == '__main__':
     g = Graph(network = True)
     # add num_nodes
     g.add_node('s')
-    g.add_node('t')
+
     g.add_node(0)
     g.add_node(1)
     g.add_node(2)
     g.add_node(3)
+    g.add_node(4)
+    g.add_node(5)
+    g.add_node(6)
+    g.add_node(7)
+    g.add_node(8)
+
+    g.add_node('t')
     # add num_edges
-    g.add_edge('s', 0, 10)
+    g.add_edge('s', 0, 5)
     g.add_edge('s', 1, 10)
-    g.add_edge(0, 2, 25)
-    g.add_edge(1, 3, 15)
-    g.add_edge(3, 0, 6)
-    g.add_edge(3, 't', 10)
-    g.add_edge(2, 't', 10)
-
-
+    g.add_edge('s', 2, 5)
+    g.add_edge(0, 3, 10)
+    g.add_edge(1, 0, 15)
+    g.add_edge(1, 4, 20)
+    g.add_edge(2, 5, 10)
+    g.add_edge(3, 4, 25)
+    g.add_edge(3, 6, 10)
+    g.add_edge(4, 2, 5)
+    g.add_edge(4, 7, 30)
+    g.add_edge(5, 7, 5)
+    g.add_edge(5, 8, 10)
+    g.add_edge(6, 't', 5)
+    g.add_edge(7, 't', 15)
+    g.add_edge(7, 3, 15)
+    g.add_edge(7, 8, 5)
+    g.add_edge(8, 't', 10)
 
     flow = Ford_Fulkerson(g, 's', 't')
     print(f"Max Flow: {flow}")
-
     pass
