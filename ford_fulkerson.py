@@ -4,7 +4,8 @@
 from Graph import *
 import queue
 
-def Ford_Fulkerson(graph, s, t, write_flow = True):
+
+def Ford_Fulkerson(graph, s, t, write_flow=True):
     max_flow = 0
 
     while has_augmenting_path(graph, s):
@@ -19,6 +20,7 @@ def Ford_Fulkerson(graph, s, t, write_flow = True):
 
     return max_flow
 
+
 def has_augmenting_path(graph, s):
     src = graph.get_node(s)
     neighbors = src.get_neighbors()
@@ -29,9 +31,11 @@ def has_augmenting_path(graph, s):
 
     return False
 
+
 def find_augmenting_path(graph, s, t):
     prev = bfs(graph, s, t)
     return build_path(graph, prev, s, t)
+
 
 def bfs(graph, s, t):
     q = queue.Queue()
@@ -53,6 +57,7 @@ def bfs(graph, s, t):
                 prev[elem] = next
 
     return prev
+
 
 def build_path(graph, prev, start, end):
     path = []
@@ -78,16 +83,20 @@ def build_path(graph, prev, start, end):
     print("No path")
     return [], float('inf')
 
+
 def update_augmenting_path(graph, path, bottle_neck):
     m = len(path)
     index = 0
 
     while index < m - 1:
         node = path[index]
-        graph.get_node(node).add_flow(path[index + 1], bottle_neck) # update remaining capacity
-        graph.get_node(path[index + 1]).add_flow(node, - bottle_neck) # update residual edge
+        # update remaining capacity
+        graph.get_node(node).add_flow(path[index + 1], bottle_neck)
+        graph.get_node(path[index + 1]).add_flow(node, -
+                                                 bottle_neck)  # update residual edge
         index += 1
     pass
+
 
 def write(graph, s, t):
     print(f"Source: {s}")
@@ -95,13 +104,15 @@ def write(graph, s, t):
     for node in graph.get_list_node():
         vertex = graph.get_node(node)
         for neighbor in vertex.get_neighbors():
-            print(f"From: {node} \t To: {neighbor} \t Flow: {vertex.get_flow(neighbor)} \t Capacity: {vertex.get_remaining_capacity(neighbor)}")
+            print(
+                f"From: {node} \t To: {neighbor} \t Flow: {vertex.get_flow(neighbor)} \t Capacity: {vertex.get_remaining_capacity(neighbor)}")
 
     print(f"Sink: {t}")
     return
 
+
 if __name__ == '__main__':
-    g = Graph(network = True)
+    g = Graph(network=True)
     # add num_nodes
     g.add_node('s')
 

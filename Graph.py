@@ -3,16 +3,17 @@
 # Default: undirected and unweighted graph (Network = False)
 import random
 
+
 class Vertex:
     # Special class for the Graph node
     # The DS has the node id and the list of neighbors
     # For Network Graph the adjacent list has the [Weight, Flow] - pair for the corresponding neighbor as value
-    def __init__(self, node, network = False):
+    def __init__(self, node, network=False):
         self.id = node
         self.adjacent = {}
         self.network = network
 
-    def __str__(self):
+   def __str__(self):
         return str(self.id)
 
     def get_id(self):
@@ -44,7 +45,7 @@ class Vertex:
         else:
             return "Not a network graph"
 
-    def add_neighbor(self, t, weight = 0, flow = 0):
+    def add_neighbor(self, t, weight=0, flow=0):
         if not self.network:
             self.adjacent[t] = weight
         else:
@@ -66,16 +67,18 @@ class Vertex:
         edges = []
         for tmp in self.adjacent:
             edges.append(Edge(self.id, tmp, self.adjacent[tmp]))
+
         return edges
+
 
 class Edge:
     # Special class for the Graph's edges
     # Edge is a triplet:
     # (From, To, Weight)
-    def __init__(self, s, t, weight = 0):
+    def __init__(self, s, t, weight=0):
         self.s = s
         self.t = t
-        self.weight = weight # weight = capacity in case of network
+        self.weight = weight  # weight = capacity in case of network
 
     def __str__(self):
         return f"({str(self.s)}, {str(self.t)}, {str(self.weight)})"
@@ -93,9 +96,11 @@ class Edge:
     def get_weight(self):
         return self.weight
 
+
 class Graph:
-    def __init__(self, undirected = True, network =  False):
-        self.vertices = {} # dicionario com tipos primitivos (key) apontando para o tipo "Vertex" (Value)
+    def __init__(self, undirected=True, network=False):
+        # dicionario com tipos primitivos (key) apontando para o tipo "Vertex" (Value)
+        self.vertices = {}
         self.num_nodes = 0
         self.num_edges = 0
         self.undirected = undirected
@@ -108,7 +113,8 @@ class Graph:
         return self.network
 
     def get_list_node(self):
-        return list(self.vertices.keys()) #return list with the node's primitive type
+        # return list with the node's primitive type
+        return list(self.vertices.keys())
 
     def get_list_edges(self):
         edges = []
@@ -119,14 +125,15 @@ class Graph:
 
         return edges
 
-    def get_node(self, node): #node is primitive (Vertex's id)
+    def get_node(self, node):  # node is primitive (Vertex's id)
         try:
-            return self.vertices[node] #retorna the Vertex node
+            return self.vertices[node]  # retorna the Vertex node
         except:
             return f"No such node: {node}"
 
     def get_random_node(self):
-        aux = random.choice(list(self.vertices.values())) # return random Vertex
+        aux = random.choice(list(self.vertices.values())
+                            )  # return random Vertex
         return aux.get_id()
 
     def get_edge(self, s, t):
@@ -134,8 +141,8 @@ class Graph:
             return f"Node {s} not in graph"
         if t not in self.vertices:
             return f"Node {t} not in graph"
-        #if self.network:
-            #return Edge(s, t, self.vertices[s].get_weight)
+        # if self.network:
+            # return Edge(s, t, self.vertices[s].get_weight)
 
         return Edge(s, t, self.vertices[s].get_weight(t))
 
@@ -145,36 +152,38 @@ class Graph:
     def count_edges(self):
         return self.num_edges
 
-    def add_node(self, node): # node é um tipo primitivo
+    def add_node(self, node):  # node é um tipo primitivo
         self.num_nodes += 1
         if self.network:
-            new_vertex = Vertex(node, network = self.network)
+            new_vertex = Vertex(node, network=self.network)
             self.vertices[node] = new_vertex
             return
 
         new_vertex = Vertex(node)
-        self.vertices[node] = new_vertex #lista com tipo Vertex
+        self.vertices[node] = new_vertex  # lista com tipo Vertex
         pass
 
-    def add_edge(self, s, t, weight = 0): # add edge s -> t
+    def add_edge(self, s, t, weight=0):  # add edge s -> t
         if s not in self.vertices:
             self.add_node(s)
         if t not in self.vertices:
             self.add_node(t)
 
         if self.network:
-            self.vertices[s].add_neighbor(t,weight)
+            self.vertices[s].add_neighbor(t, weight)
             self.num_edges += 1
-            self.vertices[t].add_neighbor(s) # add residual edge (t -> s): capacity = 0, flow = 0 (Default)
+            # add residual edge (t -> s): capacity = 0, flow = 0 (Default)
+            self.vertices[t].add_neighbor(s)
             return
 
-        self.vertices[s].add_neighbor(t,weight)
+        self.vertices[s].add_neighbor(t, weight)
         self.num_edges += 1
 
         if self.undirected:
             self.vertices[t].add_neighbor(s, cost)
 
         pass
+
 
 if __name__ == '__main__':
     g = Graph()
@@ -183,12 +192,12 @@ if __name__ == '__main__':
     g.add_node('c')
 
     g.add_edge('a', 'b', 3)
-    g.add_edge('b','c',10)
+    g.add_edge('b', 'c', 10)
 
-    print(g.get_edge('c','b'))
+    print(g.get_edge('c', 'b'))
     print(g.get_random_node())
     for aux in g.get_node('b').list_edges():
-        print(aux, end = ' ')
+        print(aux, end=' ')
     print()
     for aux in g.get_node('a').list_edges():
-        print(aux, end = ' ')
+        print(aux, end=' ')
