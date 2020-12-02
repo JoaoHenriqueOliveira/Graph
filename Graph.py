@@ -13,7 +13,7 @@ class Vertex:
         self.adjacent = {}
         self.network = network
 
-   def __str__(self):
+    def __str__(self):
         return str(self.id)
 
     def get_id(self):
@@ -180,7 +180,7 @@ class Graph:
         self.num_edges += 1
 
         if self.undirected:
-            self.vertices[t].add_neighbor(s, cost)
+            self.vertices[t].add_neighbor(s, weight)
 
         pass
 
