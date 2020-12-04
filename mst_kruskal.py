@@ -24,7 +24,7 @@ def kruskal_procedure(graph, n, visited, sorted_edges):
     mst_edges = []
     first = True
 
-    while len(sorted_edges) != 0 and count_edges != m:
+    while count_edges != m and  len(sorted_edges) != 0:
         edge = sorted_edges.pop(0)
 
         if first:
