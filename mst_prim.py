@@ -21,10 +21,11 @@ def lazyPrim(g, s, n, pq, visited):
     while not pq.empty() and edgeCount != m:
         edge = pq.get() # O(log(E))
         nodeIndex = edge.get_to()
-        weight = edge.get_weight()
 
         if visited[nodeIndex]:
             continue # go back to the begining of the loop -> we take another edge from the pq
+
+        weight = edge.get_weight()
         mstEdges.append(edge)
         edgeCount += 1
         mstCost += weight
